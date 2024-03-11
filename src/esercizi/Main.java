@@ -1,12 +1,15 @@
 package esercizi;
 
 import exceptions.InvlidNumCalculateLitro;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
+    private static Logger logger = LoggerFactory.getLogger(Main.class);
     public static void main(String[] args) {
 
         Scanner scn = new Scanner(System.in);
@@ -36,27 +39,30 @@ public class Main {
 //            System.out.println(Arrays.toString(arrayNum));
 //            scn.nextLine();
 //        } while (newPosition != 0); {
-//            System.out.println("arrivedrci");
+//            logger.info("arrivedrci");
 //        };
 //----------------------------------------------------------------------------------------------------
-        int km;
-        int litro;
+        double km;
+        double litro = 0;
 
-        System.out.println("km percorsi:");
+        logger.info("km percorsi:");
         km = scn.nextInt();
-        System.out.println("l consumati:");
+        logger.info("l consumati:");
        try {
            litro = scn.nextInt();
-       } catch(ArithmeticException e ) {
-           System.err.println("errore");
-       }  catch (InputMismatchException e) {
-               System.err.println("Non hai inserito un numero!");
-               throw new InputMismatchException(e);
 
-        } finally {
+       }
+//       catch(InvlidNumCalculateLitro l){
+//           logger.info(l.getMessage());
+//       }
+       catch(ArithmeticException e ) {
+           logger.error("errore");
+       }  catch (InputMismatchException e) {
+               logger.error("Non hai inserito un numero!");
+        }
+       finally {
            scn.close();
        }
-
-        System.out.println("km/litro: " + km/litro);
+        logger.info("km/litro: " + km/litro);
     }
 }
